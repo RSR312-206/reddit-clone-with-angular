@@ -1,0 +1,31 @@
+nav {
+  padding: 20px;
+  margin-bottom: 10px;
+}
+#title {
+  width: 50px;
+  font-size: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#addButton{
+  margin-top: 20px;
+}
+
+#focusedInput {
+  margin-top: 25px;
+}
+
+#postButton {
+  margin-top: 10px;
+}
+
+#posts {
+  margin-top: 100px;
+  padding: 10px;
+}
+
+#comments {
+  margin: 20px;
+}
