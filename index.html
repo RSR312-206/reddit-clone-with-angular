@@ -1,94 +1,94 @@
 <html ng-app="redditApp">
   <head>
-      <meta charset 'utf-8'>
-      <script type='text/javascript'src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js'></script>
-      <link rel="stylesheet" href='https://bootswatch.com/darkly/bootstrap.min.css'></link>
-      <link rel="stylesheet" href="reddit.css">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
-    </head>
-<body>
-  <div ng-controller="postController">
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="col-md-1">
-          <h2 id="title">Reddit: Cloned</h2>
-        </div>
-        <div class='row'>
-          <div class='col-lg-3 col-lg-offset-3'>
-            <!--button and form for new post -->
-            <button class="btn btn-primary btn-lg btn-block" id="addButton" type="text" ng-click="addAPost = !addAPost">add a Post</button>
+    <meta charset 'utf-8'>
+    <script type='text/javascript'src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angular.min.js'></script>
+    <link rel="stylesheet" href='https://bootswatch.com/darkly/bootstrap.min.css'></link>
+    <link rel="stylesheet" href="reddit.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="postController">
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <div class="col-md-1">
+            <h2 id="title">Reddit: Cloned</h2>
           </div>
-          <div class='form-group col-lg-2 col-lg-offset-2'>
-            <label class="control-label"</label>
-            <input class="form-control" id="focusedInput" type="text" placeholder="Search" ng-model="search.title">
+          <div class='row'>
+            <div class='col-lg-3 col-lg-offset-3'>
+              <!--button and form for new post -->
+              <button class="btn btn-primary btn-lg btn-block" id="addButton" type="text" ng-click="addAPost = !addAPost">add a Post</button>
+            </div>
+            <div class='form-group col-lg-2 col-lg-offset-2'>
+              <label class="control-label"</label>
+              <input class="form-control" id="focusedInput" type="text" placeholder="Search" ng-model="search.title">
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class='container-fluid'>
+        <div class='row'>
+           <div class='col-lg-6 col-lg-offset-10'>
+              <ul> Sort:
+                <select ng-model="search">
+                  <option value="-vote">Votes</option>
+                  <option value="date">Date</option>
+                  <option value="title">Title</option>
+                </select>
+              </ul>
+            </div>
+          <div class='col-lg-4 col-lg-offset-4 bg-primary'>
+            <form class="form-group" ng-show="addAPost" ng-submit="save()">
+              Title
+              <input class="form-control"type="text" ng-model="post.title" required>
+              Author
+              <input class="form-control" type="text"ng-model="post.author" required>
+              Image
+              <input class="form-control" type="text"ng-model="post.image" required>
+              Description
+              <input class="form-control" type="text"ng-model="post.description" required>
+              <button id="postButton" type="submit" class="btn btn-success">Submit</button>
+            </form>
           </div>
         </div>
       </div>
-    </nav>
-    <div class='container-fluid'>
-      <div class='row'>
-         <div class='col-lg-6 col-lg-offset-10'>
-            <ul> Sort:
-              <select ng-model="search">
-                <option value="-vote">Votes</option>
-                <option value="date">Date</option>
-                <option value="title">Title</option>
-              </select>
-            </ul>
-          </div>
-        <div class='col-lg-4 col-lg-offset-4 bg-primary'>
-          <form class="form-group" ng-show="addAPost" ng-submit="save()">
-            Title
-            <input class="form-control"type="text" ng-model="post.title" required>
-            Author
-            <input class="form-control" type="text"ng-model="post.author" required>
-            Image
-            <input class="form-control" type="text"ng-model="post.image" required>
-            Description
-            <input class="form-control" type="text"ng-model="post.description" required>
-            <button id="postButton" type="submit" class="btn btn-success">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-    <div ng-controller="commentsController">
-      <div id="posts" class="container-fluid">
-        <div class='row'>
-           <div class="bg-default"ng-repeat="form in forms | orderBy: search | filter: search.title">
-            <p><img class="col-lg-2" height='200px' width='200px'% ng-src='{{ form.image }}'/></p>
-            <p class="col-lg-1">{{ form.title }}</p>
-            <p class="col-lg-1">{{ form.author }} {{ rightNow | date:'HH:mm' }}</p>
-            <p class="col-lg-3">{{ form.description }}</p>
-              <button type="text" class="btn btn-warning"ng-click="seeComments = !seeComments">see comments</button>
-              <button type="text" class="btn btn-warning"ng-click="commentForm = !commentForm">Add Comment</button>
-            <p class="col-lg-2"ng-model="vote">
-              <button class="btn btn-info" ng-click="form.vote = form.vote + 1">&uarr;</button>
-              <button class="btn btn-info" ng-click="form.vote = form.vote - 1">&darr;</button>
-              {{ form.vote }}
-            </p>
-            <div class="row" ng-repeat="comment in form.commentArray">
-              <div class="col-lg-12 bg-default">
-                <blockquote>
-                  <p id="comments" class="col-lg-6 col-lg-offset-1" ng-show="seeComments">{{ comment.comment }}<small>{{ comment.author }}</small> </p>
-                </blockquote>
+      <div ng-controller="commentsController">
+        <div id="posts" class="container-fluid">
+          <div class='row'>
+            <div class="bg-default"ng-repeat="form in forms | orderBy: search | filter: search.title">
+              <p><img class="col-lg-2" height='200px' width='200px'% ng-src='{{ form.image }}'/></p>
+              <p class="col-lg-1">{{ form.title }}</p>
+              <p class="col-lg-1">{{ form.author }} {{ rightNow | date:'HH:mm' }}</p>
+              <p class="col-lg-3">{{ form.description }}</p>
+                <button type="text" class="btn btn-warning"ng-click="seeComments = !seeComments">see comments</button>
+                <button type="text" class="btn btn-warning"ng-click="commentForm = !commentForm">Add Comment</button>
+              <p class="col-lg-2"ng-model="vote">
+                <button class="btn btn-info" ng-click="form.vote = form.vote + 1">&uarr;</button>
+                <button class="btn btn-info" ng-click="form.vote = form.vote - 1">&darr;</button>
+                {{ form.vote }}
+              </p>
+              <div class="row" ng-repeat="comment in form.commentArray">
+                <div class="col-lg-12 bg-default">
+                  <blockquote>
+                    <p id="comments" class="col-lg-6 col-lg-offset-1" ng-show="seeComments">{{ comment.comment }}<small>{{ comment.author }}</small> </p>
+                  </blockquote>
+                </div>
+              </div>
+              <div class="row">
+                <form class="col-lg-6 col-lg-offset-1 form-group"ng-show="commentForm" ng-submit="addComment()">
+                  Author:
+                  <input type="text" class="form-control" ng-model="newComment.author">
+                  Comment:
+                  <input type="Text" class="form-control" ng-model="newComment.comment">
+                  <button class="btn btn-success" type="submit">Submit</button>
+                </form>
               </div>
             </div>
-            <div class="row">
-              <form class="col-lg-6 col-lg-offset-1 form-group"ng-show="commentForm" ng-submit="addComment()">
-                Author:
-                <input type="text" class="form-control" ng-model="newComment.author">
-                Comment:
-                <input type="Text" class="form-control" ng-model="newComment.comment">
-                <button class="btn btn-success" type="submit">Submit</button>
-              </form>
-            </div>
-          </div>
+           </div>
          </div>
-       </div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
   <script>
     var time = new Date()
     var app = angular.module("redditApp", ['angularMoment']);
@@ -144,7 +144,7 @@
       }
       $scope.addComment = function() {
         $scope.forms.commentArray.push($scope.newComment);
-        }
+      }
     })
   </script>
 </html>
