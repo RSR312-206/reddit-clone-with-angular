@@ -28,15 +28,15 @@
       </nav>
       <div class='container-fluid'>
         <div class='row'>
-           <div class='col-lg-6 col-lg-offset-10'>
-              <ul> Sort:
-                <select ng-model="search">
-                  <option value="-vote">Votes</option>
-                  <option value="date">Date</option>
-                  <option value="title">Title</option>
-                </select>
-              </ul>
-            </div>
+          <div class='col-lg-6 col-lg-offset-10'>
+            <ul> Sort:
+              <select ng-model="search">
+                <option value="-vote">Votes</option>
+                <option value="date">Date</option>
+                <option value="title">Title</option>
+              </select>
+            </ul>
+          </div>
           <div class='col-lg-4 col-lg-offset-4 bg-primary'>
             <form class="form-group" ng-show="addAPost" ng-submit="save()">
               Title
